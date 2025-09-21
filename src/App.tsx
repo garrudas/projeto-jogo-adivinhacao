@@ -8,6 +8,8 @@ import { LettersUsed, LettersUsedProps } from "./components/LettersUsed"
 import { WORDS, Challenge } from "./utils/words"
 import { useEffect, useState } from "react"
 
+const ATTEMPTS_MARGIN = 5
+
 export function App() {
   const [score, setScore] = useState(0)
   const [letter, setLetter] = useState("")
@@ -69,8 +71,14 @@ export function App() {
   return (
     <div className={styles.container}>
       <main>
-        <Header current={score} max={10} onRestart={handleRestartGame} />
+        <Header
+          current={lettersUsed.length}
+          max={challenge.word.length + ATTEMPTS_MARGIN}
+          onRestart={handleRestartGame}
+        />
+
         <Tip tip={challenge.tip} />
+
         <div className={styles.word}>
           {challenge.word.split("").map((letter, index) => {
             const letterUsed = lettersUsed.find(
